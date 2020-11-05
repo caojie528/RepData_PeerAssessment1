@@ -34,7 +34,7 @@ activity$date = ymd(activity$date)
 
 1. Calculate the total number of steps taken per day
 
-```{r}
+```{r total_steps}
 total_steps <- activity %>% 
   group_by(date) %>% 
   summarise(steps = sum(steps, na.rm = TRUE))
@@ -42,7 +42,7 @@ total_steps <- activity %>%
 
 2. Make a histogram of the total number of steps taken each day
 
-```{r}
+```{r plot1}
 p1 <- ggplot(total_steps, aes(x = date, y = steps)) + 
   geom_bar(stat = 'identity', fill = 'blue') + 
   xlab("Date") + 
@@ -58,7 +58,7 @@ suppressMessages(ggsave(filename = "./figure/plot1.png", plot = p1))
 
 3. Calculate and report the mean and median of the total number of steps taken per day
 
-```{r}
+```{r mean_med_steps}
 # Mean of the total number of steps per day
 mean_steps <- mean(total_steps$steps, na.rm = TRUE)
 mean_steps
@@ -73,7 +73,7 @@ The mean of the total number of steps taken per day is `r round(mean_steps, 0)`,
 
 1. Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
 
-```{r}
+```{r plot2}
 # Calculate average number of steps by 5-minute interval
 interval_mean <- activity %>% 
   group_by(interval) %>% 
@@ -96,7 +96,7 @@ suppressMessages(ggsave(filename = "./figure/plot2.png", plot = p2))
 
 2. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 
-```{r}
+```{r max_interval}
 max_interval <- interval_mean$interval[which.max(interval_mean$mean_steps)]
 max_interval
 ```
@@ -107,7 +107,7 @@ The `r max_interval`th 5-minute interval, on average across all the days, contai
 
 1. Calculate and report the total number of missing values in the dataset (i.e. the total number of rows with NAs)
 
-```{r}
+```{r count_na}
 # Only steps column has NA, so we count how mnay rows with NAs in steps
 total_na <- sum(is.na(activity$steps))
 total_na
@@ -121,7 +121,7 @@ Here we plan to use the median for the 5-minute interval across all days to impu
 
 3. Create a new dataset that is equal to the original dataset but with the missing data filled in.
 
-```{r}
+```{r imputation}
 # Median of steps for each 5-minute interval, across all days
 interval_median <- activity %>% 
   group_by(interval) %>% 
@@ -136,7 +136,7 @@ activity_imputed <- activity %>%
 
 4. Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day. Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps?
 
-```{r}
+```{r plot3}
 # Calculate total number of steps for each day
 total_steps_imputed <- activity_imputed %>% 
   group_by(date) %>% 
@@ -156,7 +156,7 @@ p3
 suppressMessages(ggsave(filename = "./figure/plot3.png", plot = p3))
 ```
 
-```{r}
+```{r mean_med_imputed}
 # Mean of the total number of steps per day with imputed data
 mean_steps_imputed <- mean(total_steps_imputed$steps, na.rm = TRUE)
 mean_steps_imputed
@@ -173,7 +173,7 @@ The median of total number of steps do not change, as expected, because we imput
 
 1. Create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day.
 
-```{r}
+```{r day_of_week}
 activity_imputed$wday <- ifelse(weekdays(activity_imputed$date) %in% c("Saturday", "Sunday"), "weekend", "weekday")
 activity_imputed$wday <- as.factor(activity_imputed$wday)
 ```
@@ -181,7 +181,7 @@ activity_imputed$wday <- as.factor(activity_imputed$wday)
 
 2. Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). See the README file in the GitHub repository to see an example of what this plot should look like using simulated data.
 
-```{r}
+```{r plot4}
 # Calculate average number of steps in 5-minute intervals by weekday/weekend days
 mean_steps_wday <- activity_imputed %>% 
   group_by(wday, interval) %>% 

@@ -58,7 +58,7 @@ p1 <- ggplot(total_steps, aes(x = date, y = steps)) +
 p1
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
+![](PA1_template_files/figure-html/plot1-1.png)<!-- -->
 
 ```r
 suppressMessages(ggsave(filename = "./figure/plot1.png", plot = p1))
@@ -112,7 +112,7 @@ p2 <- ggplot(interval_mean, aes(x = interval, y = mean_steps)) +
 p2
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
+![](PA1_template_files/figure-html/plot2-1.png)<!-- -->
 
 ```r
 suppressMessages(ggsave(filename = "./figure/plot2.png", plot = p2))
@@ -191,7 +191,7 @@ p3 <- ggplot(total_steps_imputed, aes(x = date, y = steps)) +
 p3
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
+![](PA1_template_files/figure-html/plot3-1.png)<!-- -->
 
 ```r
 suppressMessages(ggsave(filename = "./figure/plot3.png", plot = p3))
@@ -255,7 +255,7 @@ p4 <- ggplot(mean_steps_wday, aes(x = interval, y = steps)) +
 p4
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
+![](PA1_template_files/figure-html/plot4-1.png)<!-- -->
 
 ```r
 suppressMessages(ggsave(filename = "./figure/plot4.png", plot = p4))
